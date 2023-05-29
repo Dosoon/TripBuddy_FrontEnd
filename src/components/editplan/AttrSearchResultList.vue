@@ -93,10 +93,7 @@ export default {
     },
     onScroll(e) {
       if (e.target.scrollHeight - e.target.scrollTop - e.target.clientHeight <= 1) {
-        // console.log("@");
         this.$emit("req-scroll-search");
-      } else {
-        // console.log(e.target.scrollHeight - e.target.scrollTop - e.target.clientHeight);
       }
     },
     onDelete(orderAndDay) {
@@ -107,7 +104,6 @@ export default {
     },
 
     fetchPath(course) {
-      // console.log(course);
       this.curCourse = course.course;
       this.tabIndex = course.idx;
       this.resetOrders();
@@ -115,9 +111,6 @@ export default {
     },
 
     addPath(info) {
-      // console.log("전달받은 인포의 제목" + info.title);
-      // console.log("현재 tabindex" + this.tabIndex);
-      // console.log("현재 courses" + JSON.stringify(this.curCourse[0][1]));
       let newObj = {
         contentId: info.contentId,
         planId: this.$route.params.planid,
@@ -125,14 +118,12 @@ export default {
         day: this.tabIndex + 1,
         attractionDto: info,
       };
-      // console.log(JSON.stringify(newObj));
       this.curCourse[this.tabIndex] = this.curCourse[this.tabIndex].concat(newObj);
       this.resetOrders();
       this.$forceUpdate();
       this.onUpdatePath(this.tabIndex);
     },
     onNewResult(result) {
-      // console.log(result);
       this.resultList = result;
     },
     onAddResult(result) {
@@ -165,18 +156,13 @@ export default {
         planId: Number(planid),
         courses: this.getCourseObject(),
       };
-      // console.log("전송 파라미터: " + JSON.stringify(params));
-      // console.log(params);
 
       modifyPlan(
         params,
         () => {
-          // console.log(data);
           alert("저장했습니다.");
         },
-        () => {
-          // console.log(err);
-        }
+        () => {}
       );
       this.onUpdatePath(this.tabIndex);
     },
@@ -192,21 +178,15 @@ export default {
           courses.push(obj);
         }
       }
-      // console.log("전송용 데이터 : " + JSON.stringify(courses));
       return courses;
     },
     onAddDay() {
-      // console.log(this.curCourse.length + ", tab is " + this.tabIndex);
       this.curCourse.push([]);
-      // this.tabIndex = this.curCourse.length - 1;
-      // console.log(this.curCourse.length + ", tab is " + this.tabIndex);
     },
     setMarker(LatLngAndInfo) {
-      // console.log(LatLngAndInfo);
       this.$emit("set-marker", LatLngAndInfo);
     },
     onUpdatePath(idx = 0, send = true) {
-      // console.log("idx = ", idx, "send = ", send);
       this.tabIndex = Number(idx);
 
       let params = {
@@ -218,7 +198,6 @@ export default {
     },
   },
   created() {
-    // console.log(this.$route);
     let planid = this.$route.params.planid;
     if (planid != undefined) {
       getPlanInfo(
@@ -227,7 +206,6 @@ export default {
           let plan = res.data;
 
           let initMapLatLngList = [];
-          // console.log(plan.courses);
           for (let i = 0; i < plan.courses.length; i++) {
             let order = plan.courses[i].order - 1;
             let day = plan.courses[i].day - 1;
@@ -242,14 +220,11 @@ export default {
           }
           if (plan.courses.length == 0) this.onAddDay();
           this.loaded = true;
-          // console.log("OnUpdatePath false from created");
           this.onUpdatePath(this.tabIndex, false);
 
           this.$emit("set-init-map", initMapLatLngList);
         },
-        () => {
-          // console.log(err);
-        }
+        () => {}
       );
     }
   },

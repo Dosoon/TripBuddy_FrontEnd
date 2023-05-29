@@ -168,7 +168,6 @@ export default {
           this.favored = true;
         },
         () => {
-          // console.log(err);
         }
       );
     },
@@ -179,7 +178,6 @@ export default {
           this.favored = false;
         },
         () => {
-          // console.log(err);
         }
       );
     },
