@@ -75,7 +75,7 @@
 
 ## 공지사항
 
-![img](resources/readme-img/pages/notice.png)
+![img](resources/readme-img/pages/notices.png)
 
 ![img](resources/readme-img/pages/noticedetail.png)
 
